@@ -5,3 +5,11 @@ on:
 
 env: 
   path: app
+
+jobs:
+  build-docker:
+  steps:
+    name: CheckOut repo
+    uses: actions/checkout@v3
+
+#    uses: actions/install
