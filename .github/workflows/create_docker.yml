@@ -1,0 +1,7 @@
+name: Docker
+
+on:
+  push:
+
+env: 
+  path: app
