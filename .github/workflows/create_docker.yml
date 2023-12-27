@@ -22,5 +22,5 @@ jobs:
 
      - name: Build and push Docker image
        run: |
-         docker build -t PavloPetrovUA/Node-for-rebiul-lab:latest .
-         docker push PavloPetrovUA/Node-for-rebiul-lab:latest
+         docker build -t pavlopetrovua/Node-for-rebiul-lab:latest .
+         docker push pavlopetrovua/Node-for-rebiul-lab:latest
