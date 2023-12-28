@@ -1,0 +1,4 @@
+1. Dockerfile конфігурація для docker image за вимогами зазначеними в node.js 
+2. pavel-petrov-ua/lab-rebuild/.github/workflows/create_docker.yml 
+створює докер image та публікує його в hub.docker.com
+3. terraform - створює середовище

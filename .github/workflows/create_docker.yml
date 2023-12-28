@@ -27,3 +27,33 @@ jobs:
          docker build -t pavlopetrovua/node-for-rebiuld-lab:latest .
          pwd
          docker push pavlopetrovua/node-for-rebiuld-lab:latest
+
+  deploy_infrastructure:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.access_key }}
+        aws-secret-access-key: ${{ secrets.secret_access_key }}
+        aws-region: us-east-1  # Замініть на свій регіон AWS
+
+    - name: Terraform Init
+      run: 
+        pwd
+        ls
+        cd ./terraform
+        pwd
+        ls
+        terraform init
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+
