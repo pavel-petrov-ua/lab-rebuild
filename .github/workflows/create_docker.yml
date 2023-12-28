@@ -60,7 +60,7 @@ jobs:
         cd ./terraform
         terraform apply -auto-approve
   
-  create_ami:
+  create_ami_job:
     needs: [build_docker_ring_ring, deploy_infrastructure]
     runs-on: ubuntu-latest
 
