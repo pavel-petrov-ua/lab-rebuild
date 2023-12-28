@@ -61,7 +61,7 @@ jobs:
         terraform apply -auto-approve
   
   ami_creation_job:
-  #  needs: [build_docker_ring_ring, deploy_infrastructure]
+    needs: deploy_infrastructure
     runs-on: ubuntu-latest
 
     steps:
