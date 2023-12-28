@@ -76,59 +76,59 @@ jobs:
         aws-region: us-east-1  # Замініть на свій регіон AWS
  
     - name: Create_EC2_instance
-    run: |
-      instance_id=$(aws ec2 run-instances \
-        --image-id ami-07ebfd5b3428b6f4d \
-        --instance-type t2.micro \
-        --key-name your-key-pair-name \
-        --query 'Instances[0].InstanceId' \
-        --output text)
-      aws ec2 wait instance-running --instance-ids $instance_id
-      instance_ip=$(aws ec2 describe-instances --instance-ids $instance_id --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
-      echo "EC2 instance $instance_id is running with IP $instance_ip"
+      run: |
+        instance_id=$(aws ec2 run-instances \
+          --image-id ami-07ebfd5b3428b6f4d \
+          --instance-type t2.micro \
+          --key-name your-key-pair-name \
+          --query 'Instances[0].InstanceId' \
+          --output text)
+        aws ec2 wait instance-running --instance-ids $instance_id
+        instance_ip=$(aws ec2 describe-instances --instance-ids $instance_id --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
+        echo "EC2 instance $instance_id is running with IP $instance_ip"
 
     - name: Install Docker on EC2 instance
-    run: |
-      aws ec2 wait instance-status-ok --instance-ids $instance_id
-      aws ssm create-document --name "install-docker" --document-type "Shell" --content '{
-        "schemaVersion": "2.2",
-        "description": "Install Docker on Ubuntu",
-        "mainSteps": [
-          {
-            "action": "aws:runShellScript",
-            "name": "install-docker",
-            "inputs": "sudo apt-get update && sudo apt-get install -y docker.io && sudo systemctl enable docker"
-          }
-        ]
-      }'
-      aws ssm create-association --instance-id $instance_id --name "install-docker"
+      run: |
+        aws ec2 wait instance-status-ok --instance-ids $instance_id
+        aws ssm create-document --name "install-docker" --document-type "Shell" --content '{
+          "schemaVersion": "2.2",
+          "description": "Install Docker on Ubuntu",
+          "mainSteps": [
+            {
+              "action": "aws:runShellScript",
+              "name": "install-docker",
+              "inputs": "sudo apt-get update && sudo apt-get install -y docker.io && sudo systemctl enable docker"
+            }
+          ]
+        }'
+        aws ssm create-association --instance-id $instance_id --name "install-docker"
 
     - name: Run Docker container on EC2 instance
-    run: |
-      aws ssm create-document --name "run-docker-container" --document-type "Shell" --content '{
-        "schemaVersion": "2.2",
-        "description": "Run Docker container on Ubuntu",
-        "mainSteps": [
-          {
-            "action": "aws:runShellScript",
-            "name": "run-docker-container",
-            "inputs": "sudo docker run -d -p 80:80 pavlopetrovua/node-for-rebuild-lab:latest"
-          }
-        ]
-      }'
-      aws ssm create-association --instance-id $instance_id --name "run-docker-container"
+      run: |
+        aws ssm create-document --name "run-docker-container" --document-type "Shell" --content '{
+          "schemaVersion": "2.2",
+          "description": "Run Docker container on Ubuntu",
+          "mainSteps": [
+            {
+              "action": "aws:runShellScript",
+              "name": "run-docker-container",
+              "inputs": "sudo docker run -d -p 80:80 pavlopetrovua/node-for-rebuild-lab:latest"
+            }
+          ]
+        }'
+        aws ssm create-association --instance-id $instance_id --name "run-docker-container"
 
     - name: Create AMI
-    run: |
-      ami_id=$(aws ec2 create-image --instance-id $instance_id --name "My AMI" --no-reboot --query 'ImageId' --output text)
-      aws ec2 wait image-available --image-ids $ami_id
-      echo "AMI $ami_id created successfully"
+      run: |
+        ami_id=$(aws ec2 create-image --instance-id $instance_id --name "My AMI" --no-reboot --query 'ImageId' --output text)
+        aws ec2 wait image-available --image-ids $ami_id
+        echo "AMI $ami_id created successfully"
 
     - name: Terminate EC2 instance
-    run: |
-      aws ec2 terminate-instances --instance-ids $instance_id
-      aws ec2 wait instance-terminated --instance-ids $instance_id
-      echo "EC2 instance $instance_id terminated successfully"
+      run: |
+        aws ec2 terminate-instances --instance-ids $instance_id
+        aws ec2 wait instance-terminated --instance-ids $instance_id
+        echo "EC2 instance $instance_id terminated successfully"
 
     - name: Save AMI ID for future use
-    run: echo "AMI_ID=$ami_id" >> $GITHUB_ENV
+      run: echo "AMI_ID=$ami_id" >> $GITHUB_ENV
