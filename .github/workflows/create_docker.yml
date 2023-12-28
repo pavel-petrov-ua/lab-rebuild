@@ -47,7 +47,7 @@ jobs:
         aws-region: us-east-1  # Замініть на свій регіон AWS
 
     - name: Terraform Init
-      run: 
+      run: |
         pwd
         ls
         cd ./terraform
