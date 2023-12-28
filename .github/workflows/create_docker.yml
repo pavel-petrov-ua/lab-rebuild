@@ -29,7 +29,7 @@ jobs:
          docker push pavlopetrovua/node-for-rebiuld-lab:latest
 
   deploy_infrastructure:
-    needs: build_docker_ring_ring
+    #  needs: build_docker_ring_ring
     runs-on: ubuntu-latest
 
     steps:
@@ -61,7 +61,7 @@ jobs:
         terraform apply -auto-approve
   
   ami_creation_job:
-    needs: deploy_infrastructure
+    #needs: deploy_infrastructure
     runs-on: ubuntu-latest
 
     steps:
@@ -101,6 +101,7 @@ jobs:
           ]
         }'
         aws ssm create-association --instance-id $instance_id --name "install-docker"
+      continue-on-error: true
 
     - name: Run Docker container on EC2 instance
       run: |
@@ -116,18 +117,21 @@ jobs:
           ]
         }'
         aws ssm create-association --instance-id $instance_id --name "run-docker-container"
+      continue-on-error: true
 
     - name: Create AMI
       run: |
         ami_id=$(aws ec2 create-image --instance-id $instance_id --name "My AMI" --no-reboot --query 'ImageId' --output text)
         aws ec2 wait image-available --image-ids $ami_id
         echo "AMI $ami_id created successfully"
+      continue-on-error: true
 
     - name: Terminate EC2 instance
       run: |
         aws ec2 terminate-instances --instance-ids $instance_id
         aws ec2 wait instance-terminated --instance-ids $instance_id
         echo "EC2 instance $instance_id terminated successfully"
+      continue-on-error: true
 
     - name: Save AMI ID for future use
       run: echo "AMI_ID=$ami_id" >> $GITHUB_ENV
