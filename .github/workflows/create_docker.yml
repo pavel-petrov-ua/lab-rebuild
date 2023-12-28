@@ -23,6 +23,7 @@ jobs:
      - name: Build and push Docker image
        run: |
          pwd
+         ls -ax
          docker build -t pavlopetrovua/node-for-rebiuld-lab:latest .
          pwd
          docker push pavlopetrovua/node-for-rebiuld-lab:latest
