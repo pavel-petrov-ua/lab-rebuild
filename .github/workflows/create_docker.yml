@@ -7,7 +7,7 @@ on:
       - dev
 
 jobs:
-  build:
+  build_docker_ring_ring:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,6 +29,7 @@ jobs:
          docker push pavlopetrovua/node-for-rebiuld-lab:latest
 
   deploy_infrastructure:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
