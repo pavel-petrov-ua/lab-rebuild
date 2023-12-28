@@ -78,7 +78,7 @@ jobs:
     - name: Create_EC2_instance
       run: |
         instance_id=$(aws ec2 run-instances \
-          --image-id ami-07ebfd5b3428b6f4d \
+          --image-id ami-0c7217cdde317cfec \
           --instance-type t2.micro \
           --query 'Instances[0].InstanceId' \
           --output text)
