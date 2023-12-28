@@ -103,6 +103,9 @@ jobs:
         }'
         aws ssm create-association --instance-id $instance_id --name "install-docker"
       continue-on-error: true
+      
+    - name: Delay for 3 minutes
+      run: sleep 180  # Затримка в 3 хвилини
 
     - name: Run Docker container on EC2 instance
       run: |
