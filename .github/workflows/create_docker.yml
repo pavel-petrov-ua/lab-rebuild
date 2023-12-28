@@ -80,7 +80,7 @@ jobs:
         instance_id=$(aws ec2 run-instances \
           --image-id ami-07ebfd5b3428b6f4d \
           --instance-type t2.micro \
-          --key-name your-key-pair-name \
+#          --key-name your-key-pair-name \
           --query 'Instances[0].InstanceId' \
           --output text)
         aws ec2 wait instance-running --instance-ids $instance_id
