@@ -59,11 +59,12 @@ jobs:
       run: |
         cd ./terraform
         terraform apply -auto-approve
-        echo "security_group_id=$(terraform output security_group_id)" >> $GITHUB_ENV
-        echo "vpc_id=$(terraform output security_group_id)" >> $GITHUB_ENV
+        echo "security_group_id=$(terraform output security_group_id)" >> $GITHUB_OUTPUT
+        echo "vpc_id=$(terraform output security_group_id)" >> $GITHUB_OUTPUT
         echo "VPC ID: $vpc_id"
         echo "Security Group ID: $security_group_id"
                 
+
 
 
 #   ami_creation_job:
