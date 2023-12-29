@@ -67,10 +67,10 @@ jobs:
       run: echo "vpc_id=$(terraform output security_group_id)" >> "$GITHUB_OUTPUT"
 
     - name: echo1 
-      run: echo "sdfsdfdsVPC ID: $vpc_id"
+      run: echo "$vpc_id"
 
     - name: echo2
-      run: echo "Security Group ID: $security_group_id"
+      run: echo "$security_group_id"
                 
 
 
