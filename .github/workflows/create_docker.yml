@@ -65,7 +65,7 @@ jobs:
     - name: terraform outputs2 
       run: echo "vpc_id=$(terraform output security_group_id)" >> "$GITHUB_OUTPUT"
     - name: echo1 
-      run: echo "VPC ID: $vpc_id"
+      run: echo "sdfsdfdsVPC ID: $vpc_id"
     - name: echo2
       run: echo "Security Group ID: $security_group_id"
                 
