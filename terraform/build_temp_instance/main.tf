@@ -41,7 +41,7 @@ resource "aws_instance" "ami_ring_ring" {
     connection {
       type        = "ssh"
       user        = local.ssh_user
-      private_key = data.github_actions_secret.private_key.value
+      private_key = data.github_actions_secret.private_key.name
       host        = aws_instance.ami_ring_ring.public_ip
     }
   }
