@@ -82,6 +82,9 @@ jobs:
         aws-secret-access-key: ${{ secrets.secret_access_key }}
         aws-region: us-east-1  # Замініть на свій регіон AWS
 
+    - name: Configure SSH key
+      run: echo "SSH_PRIVATE_KEY=${{ secrets.SSH_PRIVATE_KEY }}" >> $GITHUB_ENV
+
     - name: Terraform Init
       run: |
         pwd
