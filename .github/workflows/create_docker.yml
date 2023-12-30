@@ -81,6 +81,12 @@ jobs:
         aws-secret-access-key: ${{ secrets.secret_access_key }}
         aws-region: us-east-1  # Замініть на свій регіон AWS
 
+    - name: Create SSH key file
+      run: echo "$EC2_GITHUB" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+
+    - name: check ssh file
+      run: ls -ax ~/.ssh/id_rsa
+
 
     - name: Terraform Init
       run: |
