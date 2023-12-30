@@ -33,5 +33,5 @@ resource "aws_instance" "ami_ring_ring" {
 }
 
 output "instance_ip" {
-  value = aws_instance.example.public_ip
+  value = aws_instance.ami_ring_ring.public_ip
 }
