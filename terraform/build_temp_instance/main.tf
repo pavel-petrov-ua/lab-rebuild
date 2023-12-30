@@ -34,7 +34,7 @@ resource "aws_instance" "ami_ring_ring" {
   }
 
   provisioner "remote-exec" {
-  inline = ["echo 'Wait until SSH is ready'"]
+  inline = ["echo 'Wait until SSH is ready' >> ~/test.txts"]
 
     connection {
       type        = "ssh"
@@ -43,7 +43,6 @@ resource "aws_instance" "ami_ring_ring" {
       private_key = file("~/.ssh/id_rsa")
  #     private_key = data.github_actions_secret.private_key.name
       host        = aws_instance.ami_ring_ring.public_ip
-      command = "echo 'hello'>> ~/check.txt"
      }
    }
 
