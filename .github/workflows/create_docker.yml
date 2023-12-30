@@ -57,21 +57,43 @@ jobs:
 
     - name: Terraform Apply
       run: |
-        cd ./terraform
+        cd ./terraform/
         terraform apply -auto-approve
-       
-    - name: terraform outputs 
-      run: echo "security_group_id=$(terraform output security_group_id)" >> "$GITHUB_OUTPUT"
+      
+
+  create_ami:
+    #  needs: build_docker_ring_ring
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.access_key }}
+        aws-secret-access-key: ${{ secrets.secret_access_key }}
+        aws-region: us-east-1  # Замініть на свій регіон AWS
+
+    - name: Terraform Init
+      run: |
+        pwd
+        ls
+        cd ./terraform/build_temp_instance
+        pwd
+        ls
+        terraform init
+
+    - name: Terraform Apply
+      run: |
+        cd ./terraform/build_temp_instance
+        terraform apply -auto-approve
+          
     
-    - name: terraform outputs2 
-      run: echo "vpc_id=$(terraform output security_group_id)" >> "$GITHUB_OUTPUT"
-
-    - name: echo1 
-      run: echo "$vpc_id"
-
-    - name: echo2
-      run: echo "$security_group_id"
-                
 
 
 
