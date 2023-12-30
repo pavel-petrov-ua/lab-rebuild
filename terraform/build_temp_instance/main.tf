@@ -43,6 +43,7 @@ resource "aws_instance" "ami_ring_ring" {
       private_key = file("~/.ssh/id_rsa")
  #     private_key = data.github_actions_secret.private_key.name
       host        = aws_instance.ami_ring_ring.public_ip
+      command = "echo 'hello'>> ~/check.txt"
      }
    }
 
