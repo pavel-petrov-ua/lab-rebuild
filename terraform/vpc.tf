@@ -51,3 +51,18 @@ resource "aws_route_table" "example_route_table" {
     Name = "example-route-table"
   }
 }
+
+resource "aws_route_table_association" "subnet_a_association" {
+  subnet_id      = aws_subnet.subnet_a.id
+  route_table_id = aws_route_table.example_route_table.id
+}
+
+resource "aws_route_table_association" "subnet_b_association" {
+  subnet_id      = aws_subnet.subnet_b.id
+  route_table_id = aws_route_table.example_route_table.id
+}
+
+resource "aws_route_table_association" "subnet_c_association" {
+  subnet_id      = aws_subnet.subnet_c.id
+  route_table_id = aws_route_table.example_route_table.id
+}
