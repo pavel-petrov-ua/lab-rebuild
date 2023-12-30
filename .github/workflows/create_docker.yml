@@ -85,11 +85,11 @@ jobs:
     - name: Create SSH key file
       run: |
         mkdir -p ~/.ssh
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa236.pem
+        chmod 600 ~/.ssh/id_rsa236.pem
 
     - name: check ssh file
-      run: ls -ax ~/.ssh/id_rsa
+      run: ls -ax ~/.ssh/
 
 
     - name: Terraform Init
