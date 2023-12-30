@@ -36,24 +36,24 @@ resource "aws_instance" "ami_ring_ring" {
   tags = {
     Name = "example-instance"
   }
-}
-#   provisioner "remote-exec" {
-#   inline = ["echo 'Wait until SSH is ready'"]
 
-#     connection {
-#       type        = "ssh"
-#       user        = "ubuntu"
-#       private_key = base64decode("${var.TF_VAR_secret_key}")
-# #     private_key = file"${TF_VAR_secret_key}"
-# #     private_key = data.github_actions_secret.private_key.name
-#       host        = aws_instance.ami_ring_ring.public_ip
-#     }
-#   }
+  provisioner "remote-exec" {
+  inline = ["echo 'Wait until SSH is ready'"]
+
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = base64decode("${var.TF_VAR_secret_key}")
+ #     private_key = file"${TF_VAR_secret_key}"
+ #     private_key = data.github_actions_secret.private_key.name
+       host        = aws_instance.ami_ring_ring.public_ip
+     }
+   }
 
 #  provisioner "local-exec" {
 #    command = "ansible-playbook  -i ${aws_instance.nginx.public_ip}, --private-key ${local.private_key_path} nginx.yaml"
 #  }
-
+}
 
 
 
