@@ -65,7 +65,8 @@ jobs:
     #  needs: build_docker_ring_ring
     runs-on: ubuntu-latest
     needs: deploy_infrastructure
-    env: ssh-private-key: ${{ secrets.EC2_GITHUB }}
+    env: 
+      ssh-private-key: ${{ secrets.EC2_GITHUB }}
       
     steps:
     - name: Checkout repository
