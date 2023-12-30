@@ -31,7 +31,7 @@ resource "aws_instance" "ami_ring_ring" {
   subnet_id     = data.terraform_remote_state.main_line.outputs.subnet_ids[1]
   key_name      = "ec2_github"
   vpc_security_group_ids = [data.terraform_remote_state.main_line.outputs.security_group_id]
-  #associate_public_ip_address = true
+  associate_public_ip_address = true
  
   tags = {
     Name = "example-instance"
