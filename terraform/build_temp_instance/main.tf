@@ -11,7 +11,7 @@ terraform {
   }
 }
 
-data "terraform_remote_state" "other_project" {
+data "terraform_remote_state" "main_line" {
   backend = "s3"
   config = {
     bucket = "petrov-pavlo-2023-11-20"
