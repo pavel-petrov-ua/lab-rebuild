@@ -43,7 +43,7 @@ resource "aws_instance" "ami_ring_ring" {
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = base64decode(env.SSH_PRIVATE_KEY)
+      private_key = base64decode(env.ssh-private-key)
  #     private_key = file"${TF_VAR_secret_key}"
  #     private_key = data.github_actions_secret.private_key.name
       host        = aws_instance.ami_ring_ring.public_ip
