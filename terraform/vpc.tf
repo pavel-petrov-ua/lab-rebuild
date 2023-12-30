@@ -26,7 +26,7 @@ resource "aws_subnet" "subnet_c" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = "10.0.3.0/24"
   availability_zone       = "us-east-1c"
-}
+s}
 
 resource "aws_internet_gateway" "ring_ring_igw" {
   vpc_id = aws_vpc.main.id
