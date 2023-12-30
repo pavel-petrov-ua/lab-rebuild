@@ -66,8 +66,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy_infrastructure
     env:
-      TF_VAR_secret_key: ${{ secrets.EC2_GITHUB }}
-
+      SSH_PRIVATE_KEY: ${{ secrets.EC2_GITHUB }}
+ 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
