@@ -1,6 +1,8 @@
-resource "aws_security_group" "example" {
+resource "aws_security_group" "for_ring_ring" {
   name        = "sg_ring_ring"
   description = "Security group for example EC2 instance"
+  
+  vpc_id =aws_vpc.main
 
   ingress {
     from_port   = 22
