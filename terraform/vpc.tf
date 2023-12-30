@@ -27,3 +27,24 @@ resource "aws_subnet" "subnet_c" {
   cidr_block              = "10.0.3.0/24"
   availability_zone       = "us-east-1c"
 }
+
+resource "aws_internet_gateway" "ring_ring_igw" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "example-igw"
+  }
+}
+
+resource "aws_route_table" "example_route_table" {
+  vpc_id = aws_vpc.main.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.ring_ring_igw.id
+  }
+
+  tags = {
+    Name = "example-route-table"
+  }
+}
