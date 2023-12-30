@@ -20,6 +20,11 @@ data "terraform_remote_state" "main_line" {
   }
 }
 
+data "github_actions_secret" "private_key" {
+  name = "EC2_GITHUB"
+}
+
+
 resource "aws_instance" "ami_ring_ring" {
   ami           = "ami-0c7217cdde317cfec"
   instance_type = "t2.micro"
@@ -32,6 +37,18 @@ resource "aws_instance" "ami_ring_ring" {
   }
 }
 
-output "instance_ip" {
-  value = aws_instance.ami_ring_ring.public_ip
-}
+
+  provisioner "remote-exec" {
+    inline = ["echo 'Wait until SSH is ready'"]
+
+    connection {
+      type        = "ssh"
+      user        = local.ssh_user
+      private_key = data.github_actions_secret.private_key.value
+      host        = aws_instance.ami_ring_ring.public_ip
+    }
+  }
+  provisioner "local-exec" {
+    command = "ansible-playbook  -i ${aws_instance.nginx.public_ip}, --private-key ${local.private_key_path} nginx.yaml"
+  }
+
