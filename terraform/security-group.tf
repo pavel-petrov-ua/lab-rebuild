@@ -2,7 +2,7 @@ resource "aws_security_group" "for_ring_ring" {
   name        = "sg_ring_ring"
   description = "Security group for example EC2 instance"
   
-  vpc_id = aws_vpc.main
+  vpc_id = aws_vpc.main.id
 
   ingress {
     from_port   = 22
