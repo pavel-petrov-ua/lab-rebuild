@@ -20,9 +20,9 @@ data "terraform_remote_state" "main_line" {
   }
 }
 
-data "github_actions_secret" "private_key" {
-  name = "EC2_GITHUB"
-}
+#data "github_actions_secret" "private_key" {
+#  name = "EC2_GITHUB"
+#}
 
 
 resource "aws_instance" "ami_ring_ring" {
@@ -41,7 +41,8 @@ resource "aws_instance" "ami_ring_ring" {
     connection {
       type        = "ssh"
       user        = local.ssh_user
-      private_key = data.github_actions_secret.private_key.name
+      private_key = file("${var.secret_key}")
+#     private_key = data.github_actions_secret.private_key.name
       host        = aws_instance.ami_ring_ring.public_ip
     }
   }
