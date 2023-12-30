@@ -86,7 +86,7 @@ jobs:
       run: |
         mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa236.pem
-        chmod 600 ~/.ssh/id_rsa236.pem
+        chmod 666 ~/.ssh/id_rsa236.pem
 
     - name: check ssh file
       run: ls -ax ~/.ssh/
