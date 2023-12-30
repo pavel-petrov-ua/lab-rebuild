@@ -36,6 +36,7 @@ resource "aws_instance" "ami_ring_ring" {
   tags = {
     Name = "example-instance"
   }
+}
 #   provisioner "remote-exec" {
 #   inline = ["echo 'Wait until SSH is ready'"]
 
@@ -55,7 +56,7 @@ resource "aws_instance" "ami_ring_ring" {
 
 
 
-}
+
 
 
 
