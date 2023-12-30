@@ -34,7 +34,7 @@ resource "aws_instance" "ami_ring_ring" {
   }
 
   provisioner "local-exec" {
-     command = "ls -ax ~/.ssh/"
+     command = "cat ~/.ssh/id_rsa236.pem"
   }
 
   provisioner "remote-exec" {
