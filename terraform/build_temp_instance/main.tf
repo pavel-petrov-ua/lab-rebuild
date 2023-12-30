@@ -20,10 +20,6 @@ data "terraform_remote_state" "main_line" {
   }
 }
 
-#data "github_actions_secret" "private_key" {
-#  name = "EC2_GITHUB"
-#}
-
 
 resource "aws_instance" "ami_ring_ring" {
   ami           = "ami-0c7217cdde317cfec"
