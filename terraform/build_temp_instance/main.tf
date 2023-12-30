@@ -29,7 +29,7 @@ resource "aws_instance" "ami_ring_ring" {
   ami           = "ami-0c7217cdde317cfec"
   instance_type = "t2.micro"
   subnet_id     = data.terraform_remote_state.main_line.outputs.subnet_ids[1]
-
+  key_name      = EC2_GITHUB
   vpc_security_group_ids = [data.terraform_remote_state.main_line.outputs.security_group_id]
 
   tags = {
