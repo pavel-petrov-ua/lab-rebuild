@@ -33,6 +33,10 @@ resource "aws_instance" "ami_ring_ring" {
     Name = "example-instance"
   }
 
+  provisioner "local-exec" {
+     command = "ls -ax ~/.ssh/"
+  }
+
   provisioner "remote-exec" {
   inline = ["echo 'Wait until SSH is ready' >> ~/test.txts"]
 
