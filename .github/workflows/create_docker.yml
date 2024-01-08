@@ -113,7 +113,7 @@ jobs:
 
     - name: Use Terraform output
       run: |
-        echo ${{ env.tf.instance_pub_ip }}
+        echo ${{ env.instance_pub_ip }}
 
 #   ami_creation_job:
 #     #needs: deploy_infrastructure
