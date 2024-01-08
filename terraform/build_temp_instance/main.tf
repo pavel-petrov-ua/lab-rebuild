@@ -20,6 +20,8 @@ data "terraform_remote_state" "main_line" {
   }
 }
 
+#data "github_actions_secret" "ring-ring"
+#  name = ""
 
 resource "aws_instance" "ami_ring_ring" {
   ami           = "ami-0c7217cdde317cfec"
@@ -44,8 +46,9 @@ resource "aws_instance" "ami_ring_ring" {
       type        = "ssh"
       user        = "ubuntu"
  #     private_key = base64decode(env.ssh-private-key)
-      private_key = file("~/.ssh/id_rsa236.pem")
+ #     private_key = file("~/.ssh/id_rsa236.pem")
  #     private_key = data.github_actions_secret.private_key.name
+      private_key = var.ssh_private_key
       host        = aws_instance.ami_ring_ring.public_ip
      }
    }

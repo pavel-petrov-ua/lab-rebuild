@@ -77,7 +77,7 @@ jobs:
         aws-access-key-id: ${{ secrets.access_key }}
         aws-secret-access-key: ${{ secrets.secret_access_key }}
         aws-region: us-east-1  # Замініть на свій регіон AWS
-        ssh-private-key: ${{ secrets.EC2_GITHUB }}
+        TF_VAR_ssh_private_key: ${{ secrets.EC2_GITHUB }}
     
     - name: test
       run: echo $ssh-private-key
