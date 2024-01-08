@@ -108,17 +108,13 @@ jobs:
     
     - name: Capture Terraform output
       id: tf
-      run: echo instance_ip=$(terraform output instance_ip) >> $GITHUB_ENV
+      run: echo instance_pub_ip=$(terraform output instance_ip) >> $GITHUB_ENV
       #- run: echo test=$(terraform output instance_ip) >> $GITHUB_ENV
 
     - name: Use Terraform output
       run: |
-      # echo "Instance IP: ${{ terraform output instance_ip }} saadasd"
-        echo "Instance IP: ${{ steps.tf.instance_ip }} saadasd"
-        echo "Instance IP: ${{ env.tf.instance_ip }} saadasd"
-        echo "Instance IP: ${{ env.instance_ip }} saadasd"
-        echo ${{ env.instance_ip }}
-        echo ${{ env.tf.instance_ip }}
+        echo ${{ env.instance_pub_ip }}
+        echo ${{ env.tf.instance_pub_ip }}
 
 #   ami_creation_job:
 #     #needs: deploy_infrastructure
