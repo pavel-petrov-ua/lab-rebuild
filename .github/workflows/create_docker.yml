@@ -117,9 +117,8 @@ jobs:
         echo "Instance IP: ${{ steps.tf.outputs.instance_ip }} saadasd"
         echo "Instance IP: $(terraform output instance_ip) saadasd"
         echo "Instance IP: ${{ steps.tf.instance_ip }} saadasd"
-        echo "Instance IP: ${{ tf.instance_ip }} saadasd"
-        echo "Instance IP: ${{ GITHUB_OUTPUT.tf.instance_ip }} saadasd"
-        echo "Instance IP: ${{ GITHUB_OUTPUT.instance_ip }} saadasd"
+        echo "Instance IP: ${{ env.tf.instance_ip }} saadasd"
+        echo "Instance IP: ${{ env.instance_ip }} saadasd"
 
 #   ami_creation_job:
 #     #needs: deploy_infrastructure
