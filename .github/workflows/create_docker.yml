@@ -104,7 +104,7 @@ jobs:
     - name: Terraform Apply
       run: |
         cd ./terraform/build_temp_instance
-        terraform apply -auto-approve
+        terraform apply -auto-approve -var="ssh_private_key=${{ secrets.SSH_PRIVATE_KEY }}"
           
     
 
