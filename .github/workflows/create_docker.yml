@@ -119,6 +119,8 @@ jobs:
         echo "Instance IP: ${{ steps.tf.instance_ip }} saadasd"
         echo "Instance IP: ${{ env.tf.instance_ip }} saadasd"
         echo "Instance IP: ${{ env.instance_ip }} saadasd"
+        echo ${{ env.instance_ip }}
+        echo ${{ env.tf.instance_ip }}
 
 #   ami_creation_job:
 #     #needs: deploy_infrastructure
