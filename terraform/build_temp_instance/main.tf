@@ -35,9 +35,9 @@ resource "aws_instance" "ami_ring_ring" {
     Name = "example-instance"
   }
 
-  provisioner "local-exec" {
-     command = "cat ~/.ssh/id_rsa236.pem"
-  }
+  # provisioner "local-exec" {
+  #    command = "cat ~/.ssh/id_rsa236.pem"
+  # }
 
   provisioner "remote-exec" {
   inline = ["echo 'Wait until SSH is ready' >> ~/test.txts"]
