@@ -108,13 +108,13 @@ jobs:
     
     - name: Capture Terraform output
       id: tf
-      run: echo "{instance_ip}::{terraform output -raw instance_ip}" >> $GITHUB_OUTPUT
+      run: echo "{instance_ip}={terraform output instance_ip}" >> $GITHUB_OUTPUT
 
 
 
     - name: Use Terraform output
       run: |
-        echo "Instance IP: ${{ steps.tf.outputs.instance_ip.aws_instance.ami_ring_ring.public_ip }}"
+        echo "Instance IP: ${{ steps.tf.outputs.instance_ip }}"
 
 
 #   ami_creation_job:
