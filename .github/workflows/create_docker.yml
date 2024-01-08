@@ -57,7 +57,7 @@ jobs:
         terraform apply -auto-approve
       
 
-  create_ami:
+  create_ami_part1_create_ec2:
     #  needs: build_docker_ring_ring
     runs-on: ubuntu-latest
   ###############  needs: [deploy_infrastructure, build_docker_ring_ring]
@@ -115,6 +115,31 @@ jobs:
     - name: Use Terraform output
       run: |
         echo ${{ env.instance_pub_ip }}
+
+  create_ami_part2_install_docker:
+    runs-on: ubuntu-latest
+    needs: create_ami_part1_create_ec2
+
+
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+ 
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'  
+  
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.access_key }}
+          aws-secret-access-key: ${{ secrets.secret_access_key }}
+          aws-region: us-east-1  # Замініть на свій регіон AWS
+      - name: Use Terraform output
+        run: | 
+          echo ${{ env.instance_pub_ip }}
 
 #   ami_creation_job:
 #     #needs: deploy_infrastructure
