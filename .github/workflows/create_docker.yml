@@ -83,7 +83,7 @@ jobs:
         mkdir -p ~/.ssh
         echo "$ssh-private-key" > ~/.ssh/id_rsa236.pem
         cat ~/.ssh/id_rsa236.pem
-        cd /.ssh/ && ls -al
+        cd ~/.ssh/ && ls -al
         chmod 600 ~/.ssh/id_rsa236.pem
 
     - name: Terraform Init
