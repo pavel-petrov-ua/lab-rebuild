@@ -48,7 +48,7 @@ resource "aws_instance" "ami_ring_ring" {
  #     private_key = base64decode(env.ssh-private-key)
  #     private_key = file("~/.ssh/id_rsa236.pem")
  #     private_key = data.github_actions_secret.private_key.name
-      private_key = var.ssh_private_key
+      private_key = var.TF_VAR_ssh_private_key
       host        = aws_instance.ami_ring_ring.public_ip
      }
    }
