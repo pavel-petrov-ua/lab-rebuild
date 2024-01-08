@@ -71,6 +71,11 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
 
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.x'  
+
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
@@ -78,13 +83,13 @@ jobs:
         aws-secret-access-key: ${{ secrets.secret_access_key }}
         aws-region: us-east-1  # Замініть на свій регіон AWS
    #     TF_VAR_ssh_private_key: ${{ secrets.EC2_GITHUB }}
-    
-    - name: install ansible
-      run: |
-        sudo apt update
-        sudo apt install -y ansible
+   
+  #  - name: install ansible
+  #  run: |
+  #    sudo apt update
+  #    sudo apt install -y ansible
 
-
+   
     - name: Terraform Init
       run: |
         cd ./terraform/build_temp_instance
