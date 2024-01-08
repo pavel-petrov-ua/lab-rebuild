@@ -79,22 +79,11 @@ jobs:
         aws-region: us-east-1  # Замініть на свій регіон AWS
    #     TF_VAR_ssh_private_key: ${{ secrets.EC2_GITHUB }}
     
-    - name: test
-      run: echo $ssh-private-key
-    - name: test2
-      run: echo $aws-region
-    - name: test3
-      run: echo $aws-access-key-id
-        
-
-    - name: Create SSH key file
+    - name: install ansible
       run: |
-        mkdir -p ~/.ssh
-        echo "$ssh-private-key" > ~/.ssh/id_rsa236.pem
-        cat ~/.ssh/id_rsa236.pem
-        cd ~/.ssh/ && ls -al
-        cd ~/.ssh/ && cat ./id_rsa236.pem
-        chmod 600 ~/.ssh/id_rsa236.pem
+        sudo apt update
+        sudo apt install -y ansible
+
 
     - name: Terraform Init
       run: |
