@@ -115,7 +115,7 @@ jobs:
     - name: Use Terraform output
       run: |
         echo "Instance IP: ${{ steps.tf.outputs.instance_ip }} saadasd"
-        echo "Instance IP: $(terraform output instance_ip") saadasd"
+        echo "Instance IP: $(terraform output instance_ip) saadasd"
         echo "Instance IP: ${{ steps.tf.instance_ip }} saadasd"
 
 #   ami_creation_job:
