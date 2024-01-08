@@ -105,7 +105,9 @@ jobs:
       run: |
         cd ./terraform/build_temp_instance
         terraform apply -auto-approve -var="ssh_private_key=${{ secrets.EC2_GITHUB }}"
-          
+    
+    - name: Use Terraform output
+      run: echo "Instance IP: $(terraform output -raw instance_ip)"
 
 
 #   ami_creation_job:
