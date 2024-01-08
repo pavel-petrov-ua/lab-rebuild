@@ -7,26 +7,26 @@ on:
       - dev
 
 jobs:
-  # build_docker_ring_ring:
-  #   runs-on: ubuntu-latest
+  build_docker_ring_ring:
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #    - name: Checkout repository
-  #      uses: actions/checkout@v3
+    steps:
+     - name: Checkout repository
+       uses: actions/checkout@v3
 
-  #    - name: Login to Docker Hub
-  #      uses: docker/login-action@v1
-  #      with:
-  #        username: ${{ secrets.DOCKER_USERNAME }}
-  #        password: ${{ secrets.DOCKER_PASSWORD }}
+     - name: Login to Docker Hub
+       uses: docker/login-action@v1
+       with:
+         username: ${{ secrets.DOCKER_USERNAME }}
+         password: ${{ secrets.DOCKER_PASSWORD }}
 
-  #    - name: Build and push Docker image
-  #      run: |
-  #        pwd
-  #        ls -ax
-  #        docker build -t pavlopetrovua/node-for-rebiuld-lab:latest .
-  #        pwd
-  #        docker push pavlopetrovua/node-for-rebiuld-lab:latest
+     - name: Build and push Docker image
+       run: |
+         pwd
+         ls -ax
+         docker build -t pavlopetrovua/node-for-rebiuld-lab:latest .
+         pwd
+         docker push pavlopetrovua/node-for-rebiuld-lab:latest
 
   deploy_infrastructure:
     #  needs: build_docker_ring_ring
@@ -48,11 +48,7 @@ jobs:
 
     - name: Terraform Init
       run: |
-        pwd
-        ls
         cd ./terraform
-        pwd
-        ls
         terraform init
 
     - name: Terraform Apply
@@ -85,20 +81,14 @@ jobs:
     - name: Create SSH key file
       run: |
         mkdir -p ~/.ssh
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa236.pem
-        chmod 777 ~/.ssh/id_rsa236.pem
-
-    - name: check ssh file
-      run: cat ~/.ssh/id_rsa236.pem
-
+        echo "$ssh-private-key" > ~/.ssh/id_rsa236.pem
+        cat ~/.ssh/id_rsa236.pem
+        cd /.ssh/ && ls -al
+        chmod 600 ~/.ssh/id_rsa236.pem
 
     - name: Terraform Init
       run: |
-        pwd
-        ls
         cd ./terraform/build_temp_instance
-        pwd
-        ls
         terraform init
 
     - name: Terraform Apply
