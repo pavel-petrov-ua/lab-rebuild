@@ -61,6 +61,7 @@ jobs:
     #  needs: build_docker_ring_ring
     runs-on: ubuntu-latest
   ###############  needs: [deploy_infrastructure, build_docker_ring_ring]
+    needs: deploy_infrastructure
  #   env: 
  #     ssh-private-key: ${{ secrets.EC2_GITHUB }}
       
@@ -100,8 +101,6 @@ jobs:
         cd ./terraform/build_temp_instance
         terraform destroy -auto-approve
   
-
-
     - name: Terraform Apply
       run: |
         cd ./terraform/build_temp_instance
