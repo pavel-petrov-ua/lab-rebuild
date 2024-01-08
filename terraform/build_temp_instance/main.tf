@@ -53,9 +53,9 @@ resource "aws_instance" "ami_ring_ring" {
      }
    }
 
-  # provisioner "local-exec" {
-  #   command = "ANSIBLE_PRIVATE_KEY=${var.ssh_private_key} ansible-playbook  -i ${aws_instance.ami_ring_ring.public_ip} docker_install.yaml"
-  # }
+  provisioner "local-exec" {
+    command = "ANSIBLE_PRIVATE_KEY=${var.ssh_private_key} ansible-playbook  -i ${aws_instance.ami_ring_ring.public_ip} docker_install.yaml"
+  }
 }
 
 
