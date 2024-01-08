@@ -95,8 +95,6 @@ jobs:
         cd ./terraform/build_temp_instance
         terraform apply -auto-approve -var="ssh_private_key=${{ secrets.EC2_GITHUB }}"
           
-    
-
 
 
 #   ami_creation_job:
