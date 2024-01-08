@@ -66,3 +66,4 @@ resource "aws_instance" "ami_ring_ring" {
 
 
 
+
