@@ -141,7 +141,7 @@ jobs:
       - name: Use Terraform output
         run: | 
           echo ${{ env.ec2_ip }}
-     #     echo "${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }}
+          echo "${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }}
 
 #   ami_creation_job:
 #     #needs: deploy_infrastructure
