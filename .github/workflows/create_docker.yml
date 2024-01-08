@@ -106,6 +106,12 @@ jobs:
         cd ./terraform/build_temp_instance
         terraform apply -auto-approve -var="ssh_private_key=${{ secrets.EC2_GITHUB }}"
     
+    - name: Capture Terraform output
+      id: tf
+      run: echo "::set-output name=instance_ip::$(terraform output -raw instance_ip)"
+
+
+
     - name: Use Terraform output
       run: |
         echo "Instance IP: ${{ steps.tf.outputs.instance_ip }}"
