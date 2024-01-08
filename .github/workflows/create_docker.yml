@@ -95,6 +95,13 @@ jobs:
         cd ./terraform/build_temp_instance
         terraform init
 
+    - name: Terraform Destroy
+      run: |
+        cd ./terraform/build_temp_instance
+        terraform destroy -auto-approve
+  
+
+
     - name: Terraform Apply
       run: |
         cd ./terraform/build_temp_instance
