@@ -108,7 +108,7 @@ jobs:
     
     - name: Capture Terraform output
       id: tf
-      run: echo instance_ip={terraform output instance_ip} >> $GITHUB_ENV
+      run: echo instance_ip=(terraform output instance_ip) >> $GITHUB_ENV
 
 
 
