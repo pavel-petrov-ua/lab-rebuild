@@ -111,7 +111,6 @@ jobs:
       run: echo instance_ip=$(terraform output instance_ip) >> $GITHUB_ENV
       #- run: echo test=$(terraform output instance_ip) >> $GITHUB_ENV
 
-
     - name: Use Terraform output
       run: |
         echo "Instance IP: ${{ steps.tf.outputs.instance_ip }} saadasd"
