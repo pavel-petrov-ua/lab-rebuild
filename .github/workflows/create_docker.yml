@@ -108,7 +108,7 @@ jobs:
     
     - name: Use Terraform output
       run: |
-        echo "Instance IP: $(terraform output -raw instance_ip)"
+        echo "Instance IP: $(terraform output -raw aws_instance.ami_ring_ring.public_ip)"
 
 
 #   ami_creation_job:
