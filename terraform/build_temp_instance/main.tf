@@ -52,15 +52,6 @@ resource "aws_instance" "ami_ring_ring" {
       host        = aws_instance.ami_ring_ring.public_ip
      }
    }
-  provisioner "local-exec" {
-    command = "echo '${var.ssh_private_key}' > ~/.ssh/github_actions.pem"
-  }
-
-  provisioner "local-exec" {
-    command = "ansible-playbook  -i ${aws_instance.ami_ring_ring.public_ip}, -u ubuntu --private-key '~/.ssh/github_actions.pem' docker_install.yaml"
-  }
-  
-
 
   # provisioner "local-exec" {
   #   command = "ANSIBLE_PRIVATE_KEY=${var.ssh_private_key} ansible-playbook  -i ${aws_instance.ami_ring_ring.public_ip} docker_install.yaml"
