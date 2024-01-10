@@ -1,0 +1,15 @@
+---
+- name: Ansible Ping-Pong Test
+  hosts: all
+  tasks:
+    - name: Send Ping
+      ping:
+
+    - name: Debug Output
+      debug:
+        var: ansible_facts['ping']
+
+    - name: Check if Ping was successful
+      fail:
+        msg: "Ping test failed"
+      when: "'pong' not in ansible_facts['ping']"
