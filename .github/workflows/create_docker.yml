@@ -156,15 +156,22 @@ jobs:
           ls -al
 
       - name: ansible-playbook 
+        env:
+          ANSIBLE_SSH_PRIVATE_KEY: ${{ secrets.EC2_GITHUB }}
         run: |
           cd ./terraform/build_temp_instance/
+          echo "$ANSIBLE_SSH_PRIVATE_KEY" > private_key.pem
+          chmod 600 private_key.pem
+          
           echo "${{ secrets.EC2_GITHUB }}" >> ./ssh_key
           cat ./ssh_key
           chmod 600 ./ssh_key
           echo ${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }} >> inventory.ini
           ansible-playbook -i inventory.ini \
-          --private-key ./ssh_key \
+          -e "ansible_ssh_private_key_file=private_key.pem" \
           ping-pong.yaml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: "False"
 
 
 # - name: ansible-playbook 
