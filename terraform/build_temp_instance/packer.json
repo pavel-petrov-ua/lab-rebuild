@@ -1,0 +1,34 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "your-aws-region",
+      "source_ami_filter": {
+        "filters": {
+          "name": "ubuntu/images/*ubuntu-bionic-18.04-amd64-server-*",
+          "root-device-type": "ebs"
+        },
+        "most_recent": true
+      },
+      "instance_type": "t2.micro",
+      "ssh_username": "ubuntu",
+      "ami_name": "your-ami-name {{timestamp}}",
+      "ami_description": "Your AMI description",
+      "access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+      "secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sudo apt-get update",
+        "sudo apt-get install -y docker.io",
+        "sudo systemctl start docker",
+        "sudo systemctl enable docker",
+        "sudo usermod -aG docker ubuntu",
+        "docker run -d -p 80:80 pavlopetrovua/node-for-rebiuld-lab:latest"
+      ]
+    }
+  ]
+}

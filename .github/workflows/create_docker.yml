@@ -7,26 +7,30 @@ on:
       - dev
 
 jobs:
-  # build_docker_ring_ring:
-  #   runs-on: ubuntu-latest
+  build_docker_ring_ring:
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #    - name: Checkout repository
-  #      uses: actions/checkout@v3
+    steps:
+     - name: Checkout repository
+       uses: actions/checkout@v3
 
-  #    - name: Login to Docker Hub
-  #      uses: docker/login-action@v1
-  #      with:
-  #        username: ${{ secrets.DOCKER_USERNAME }}
-  #        password: ${{ secrets.DOCKER_PASSWORD }}
+     - name: Login to Docker Hub
+       uses: docker/login-action@v1
+       with:
+         username: ${{ secrets.DOCKER_USERNAME }}
+         password: ${{ secrets.DOCKER_PASSWORD }}
 
-  #    - name: Build and push Docker image
-  #      run: |
-  #        pwd
-  #        ls -ax
-  #        docker build -t pavlopetrovua/node-for-rebiuld-lab:latest .
-  #        pwd
-  #        docker push pavlopetrovua/node-for-rebiuld-lab:latest
+     - name: Build and push Docker image
+       run: |
+         pwd
+         ls -ax
+         docker build -t pavlopetrovua/node-for-rebiuld-lab:latest .
+         pwd
+         docker push pavlopetrovua/node-for-rebiuld-lab:latest
+     - name: Build AMI with Packer
+       run: packer build ./terraform/build_temp_instance/packer.json
+
+  
 
   deploy_infrastructure:
     #  needs: build_docker_ring_ring
@@ -57,33 +61,35 @@ jobs:
         terraform apply -auto-approve
       
 
-  create_ami_part1_create_ec2:
-    #  needs: build_docker_ring_ring
-    runs-on: ubuntu-latest
-  ###############  needs: [deploy_infrastructure, build_docker_ring_ring]
- #   needs: deploy_infrastructure
- #   env: 
- #     ssh-private-key: ${{ secrets.EC2_GITHUB }}
-    outputs:
-      ec2_ip: ${{ steps.instance_install.outputs.instance_pub_ip }}  
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+###################################################################
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v3
+#   create_ami_part1_create_ec2:
+#     #  needs: build_docker_ring_ring
+#     runs-on: ubuntu-latest
+#   ###############  needs: [deploy_infrastructure, build_docker_ring_ring]
+#  #   needs: deploy_infrastructure
+#  #   env: 
+#  #     ssh-private-key: ${{ secrets.EC2_GITHUB }}
+#     outputs:
+#       ec2_ip: ${{ steps.instance_install.outputs.instance_pub_ip }}  
+#     steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v3
-      with:
-        python-version: '3.x'  
+#     - name: Setup Terraform
+#       uses: hashicorp/setup-terraform@v3
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.access_key }}
-        aws-secret-access-key: ${{ secrets.secret_access_key }}
-        aws-region: us-east-1  # Замініть на свій регіон AWS
+#     - name: Set up Python
+#       uses: actions/setup-python@v3
+#       with:
+#         python-version: '3.x'  
+
+#     - name: Configure AWS credentials
+#       uses: aws-actions/configure-aws-credentials@v4
+#       with:
+#         aws-access-key-id: ${{ secrets.access_key }}
+#         aws-secret-access-key: ${{ secrets.secret_access_key }}
+#         aws-region: us-east-1  # Замініть на свій регіон AWS
    #     TF_VAR_ssh_private_key: ${{ secrets.EC2_GITHUB }}
    
   #  - name: install ansible
@@ -92,56 +98,60 @@ jobs:
   #    sudo apt install -y ansible
 
    
-    - name: Terraform Init
-      run: |
-        cd ./terraform/build_temp_instance
-        terraform init
-
-    # - name: Terraform Destroy
+    # - name: Terraform Init
     #   run: |
     #     cd ./terraform/build_temp_instance
-    #     terraform destroy -auto-approve
+    #     terraform init
+
+    # # - name: Terraform Destroy
+    # #   run: |
+    # #     cd ./terraform/build_temp_instance
+    # #     terraform destroy -auto-approve
   
-    - name: Terraform Apply
-      id: instance_install
-      run: |
-        cd ./terraform/build_temp_instance
-        terraform apply -auto-approve -var="ssh_private_key=${{ secrets.EC2_GITHUB }}"
-        echo instance_pub_ip=$(terraform output instance_ip) >> $GITHUB_ENV
-        echo instance_pub_ip=$(terraform output instance_ip) >> $GITHUB_OUTPUT
+    # - name: Terraform Apply
+    #   id: instance_install
+    #   run: |
+    #     cd ./terraform/build_temp_instance
+    #     terraform apply -auto-approve -var="ssh_private_key=${{ secrets.EC2_GITHUB }}"
+    #     echo instance_pub_ip=$(terraform output instance_ip) >> $GITHUB_ENV
+    #     echo instance_pub_ip=$(terraform output instance_ip) >> $GITHUB_OUTPUT
     
     # - name: Capture Terraform output
     #   id: tf
     #   run: echo instance_pub_ip=$(terraform output instance_ip) >> $GITHUB_ENV
     #   #- run: echo test=$(terraform output instance_ip) >> $GITHUB_ENV
 
-    - name: Use Terraform output
-      run: |
-        echo ${{ env.instance_pub_ip }}
+    # - name: Use Terraform output
+    #   run: |
+    #     echo ${{ env.instance_pub_ip }}
 
-  create_ami_part2_install_docker:
-    runs-on: ubuntu-latest
-    needs: create_ami_part1_create_ec2
-    env:
-      ANSIBLE_SSH_PRIVATE_KEY: ${{ secrets.EC2_GITHUB }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+
+###################################################################
+
+
+  # create_ami_part2_install_docker:
+  #   runs-on: ubuntu-latest
+  #   needs: create_ami_part1_create_ec2
+  #   env:
+  #     ANSIBLE_SSH_PRIVATE_KEY: ${{ secrets.EC2_GITHUB }}
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
  
-      # - name: Set up Python
-      #   uses: actions/setup-python@v3
-      #   with:
-      #     python-version: '3.x'  
+  #     # - name: Set up Python
+  #     #   uses: actions/setup-python@v3
+  #     #   with:
+  #     #     python-version: '3.x'  
   
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.access_key }}
-          aws-secret-access-key: ${{ secrets.secret_access_key }}
-          aws-region: us-east-1  # Замініть на свій регіон AWS
-      - name: Use Terraform output
-        run: | 
-          echo "${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }}"
+  #     - name: Configure AWS credentials
+  #       uses: aws-actions/configure-aws-credentials@v4
+  #       with:
+  #         aws-access-key-id: ${{ secrets.access_key }}
+  #         aws-secret-access-key: ${{ secrets.secret_access_key }}
+  #         aws-region: us-east-1  # Замініть на свій регіон AWS
+  #     - name: Use Terraform output
+  #       run: | 
+  #         echo "${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }}"
 
       # - name: ansible  
       #   run: |
@@ -165,28 +175,28 @@ jobs:
 
 
 
-      - name: Run playbook
-        uses: dawidd6/action-ansible-playbook@v2
-        with:
-          # Required, playbook filepath
-          playbook: ping-pong.yaml
-          # Optional, directory where playbooks live
-          directory: ./terraform/build_temp_instance/
-          # Optional, SSH private key
-          key: ${{ secrets.EC2_GITHUB }}
-          # Optional, literal inventory file contents
-          inventory: |
-            [all]
-            ${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }}
+      # - name: Run playbook
+      #   uses: dawidd6/action-ansible-playbook@v2
+      #   with:
+      #     # Required, playbook filepath
+      #     playbook: ping-pong.yaml
+      #     # Optional, directory where playbooks live
+      #     directory: ./terraform/build_temp_instance/
+      #     # Optional, SSH private key
+      #     key: ${{ secrets.EC2_GITHUB }}
+      #     # Optional, literal inventory file contents
+      #     inventory: |
+      #       [all]
+      #       ${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }}
 
-            [group1]
-            ${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }}
-          options: |
-            --inventory .hosts
-            --limit group1
-            --extra-vars hello=there
-            --verbose
-            
+      #       [group1]
+      #       ${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }}
+      #     options: |
+      #       --inventory .hosts
+      #       --limit group1
+      #       --extra-vars hello=there
+      #       --verbose
+
 # # Optional, SSH known hosts file content
 # known_hosts: |
 #   example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
