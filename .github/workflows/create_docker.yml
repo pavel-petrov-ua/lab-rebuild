@@ -28,7 +28,9 @@ jobs:
          pwd
          docker push pavlopetrovua/node-for-rebiuld-lab:latest
      - name: Build AMI with Packer
-       run: packer build ./terraform/build_temp_instance/packer.json
+       run: |
+        packer init ./terraform/build_temp_instance/packer.json 
+        packer build ./terraform/build_temp_instance/packer.json
 
   
 
