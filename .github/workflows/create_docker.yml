@@ -148,6 +148,9 @@ jobs:
           echo "This is absible playbook"
           pws
           ls -al
+
+      - name: ansible-2
+        run: |
           cd ~/terraform/build_temp_instance/
           pwd
           ls -al
