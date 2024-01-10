@@ -148,9 +148,14 @@ jobs:
       - name: ansible-playbook 
         run: |
           echo "This is absible playbook"
+          pws
+          ls -al
+          cd ~/terraform/build_temp_instance/
+          pwd
+          ls -al
           ansible-playbook -i ${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }} \
           --private-key <(echo "${{ secrets.secrets.EC2_GITHUB }}") \
-          ~/terraform/build_temp_instance/docker_install.yaml
+          docker_install.yaml
 
 
         
