@@ -122,7 +122,8 @@ jobs:
   create_ami_part2_install_docker:
     runs-on: ubuntu-latest
     needs: create_ami_part1_create_ec2
-
+    env:
+      ANSIBLE_SSH_PRIVATE_KEY: ${{ secrets.EC2_GITHUB }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -156,8 +157,6 @@ jobs:
           ls -al
 
       - name: ansible-playbook 
-        env:
-          ANSIBLE_SSH_PRIVATE_KEY: ${{ secrets.EC2_GITHUB }}
         run: |
           cd ./terraform/build_temp_instance/
           echo "$ANSIBLE_SSH_PRIVATE_KEY" > private_key.pem
