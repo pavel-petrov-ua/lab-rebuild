@@ -155,10 +155,6 @@ jobs:
           cd ./terraform/build_temp_instance/
           echo "$ANSIBLE_SSH_PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
-          
-          echo "${{ secrets.EC2_GITHUB }}" >> ./ssh_key
-          cat ./ssh_key
-          chmod 600 ./ssh_key
           echo ${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }} >> inventory.ini
           ansible-playbook -i inventory.ini \
           -e "ansible_ssh_private_key_file=private_key.pem" \
