@@ -140,8 +140,10 @@ jobs:
           aws-region: us-east-1  # Замініть на свій регіон AWS
       - name: Use Terraform output
         run: | 
-          echo ${{ env.ec2_ip }}
           echo "${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }}"
+
+      - name: ansible  
+        run: ansible-playbook --version
 
 #   ami_creation_job:
 #     #needs: deploy_infrastructure
