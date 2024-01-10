@@ -146,7 +146,7 @@ jobs:
         run: |
           ansible-playbook --version
           echo "This is absible playbook"
-          pws
+          pwd
           ls -al
 
       - name: ansible-2
