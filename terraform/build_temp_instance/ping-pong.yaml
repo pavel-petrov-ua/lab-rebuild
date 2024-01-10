@@ -13,3 +13,5 @@
       fail:
         msg: "Ping test failed"
       when: "'pong' not in ansible_facts['ping']"
+  vars:
+    ansible_ssh_extra_args: '-o StrictHostKeyChecking=no'
