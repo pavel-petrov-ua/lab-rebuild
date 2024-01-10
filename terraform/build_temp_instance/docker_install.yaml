@@ -1,6 +1,6 @@
 ---
 - name: Install Docker and Run Container
-  #hosts: all
+  hosts: all
   become: yes
 
   tasks:
