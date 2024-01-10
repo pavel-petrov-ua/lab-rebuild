@@ -151,13 +151,13 @@ jobs:
 
       - name: ansible-2
         run: |
-          cd ~/terraform/build_temp_instance/
+          cd ./terraform/build_temp_instance/
           pwd
           ls -al
 
       - name: ansible-playbook 
         run: |
-          cd ~/terraform/build_temp_instance/
+          cd ./terraform/build_temp_instance/
           ansible-playbook -i ${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }} \
           --private-key <(echo "${{ secrets.secrets.EC2_GITHUB }}") \
           docker_install.yaml
