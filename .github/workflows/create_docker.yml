@@ -150,12 +150,6 @@ jobs:
           pwd
           ls -al
 
-      - name: ansible-2
-        run: |
-          cd ./terraform/build_temp_instance/
-          pwd
-          ls -al
-
       - name: ansible-playbook 
         run: |
           cd ./terraform/build_temp_instance/
