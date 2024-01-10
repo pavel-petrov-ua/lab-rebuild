@@ -2,18 +2,18 @@
   "builders": [
     {
       "type": "amazon-ebs",
-      "region": "your-aws-region",
+      "region": "us-east-1",
       "source_ami_filter": {
         "filters": {
-          "name": "ubuntu/images/*ubuntu-bionic-18.04-amd64-server-*",
+          "name": "ubuntu/images/*ubuntu-bionic-20.04-amd64-server-*",
           "root-device-type": "ebs"
         },
         "most_recent": true
       },
       "instance_type": "t2.micro",
       "ssh_username": "ubuntu",
-      "ami_name": "your-ami-name {{timestamp}}",
-      "ami_description": "Your AMI description",
+      "ami_name": "ring-ring-ami{{timestamp}}",
+      "ami_description": "ring ring project",
       "access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
       "secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}"
     }
