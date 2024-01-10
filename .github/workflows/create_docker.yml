@@ -158,10 +158,22 @@ jobs:
       - name: ansible-playbook 
         run: |
           cd ./terraform/build_temp_instance/
+          echo "${{ secrets.EC2_GITHUB }}" >> ./ssh_key
           echo ${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }} >> inventory.ini
           ansible-playbook -i inventory.ini \
-          --private-key <(echo "${{ secrets.EC2_GITHUB }}") \
+          --private-key ./ssh_key \
           ping-pong.yaml
+
+
+          # - name: ansible-playbook 
+          # run: |
+          #   cd ./terraform/build_temp_instance/
+          #   echo ${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }} >> inventory.ini
+          #   ansible-playbook -i inventory.ini \
+          #   --private-key <(echo "${{ secrets.EC2_GITHUB }}") \
+          #   ping-pong.yaml
+  
+
 
 
         
