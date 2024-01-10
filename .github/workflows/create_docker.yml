@@ -127,10 +127,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
  
-      - name: Set up Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.x'  
+      # - name: Set up Python
+      #   uses: actions/setup-python@v3
+      #   with:
+      #     python-version: '3.x'  
   
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -144,6 +144,9 @@ jobs:
 
       - name: ansible  
         run: ansible-playbook --version
+
+
+        
 
 #   ami_creation_job:
 #     #needs: deploy_infrastructure
