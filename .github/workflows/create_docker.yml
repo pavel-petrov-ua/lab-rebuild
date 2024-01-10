@@ -143,26 +143,57 @@ jobs:
         run: | 
           echo "${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }}"
 
-      - name: ansible  
-        run: |
-          ansible-playbook --version
-          echo "This is absible playbook"
-          pwd
-          ls -al
+      # - name: ansible  
+      #   run: |
+      #     ansible-playbook --version
+      #     echo "This is absible playbook"
+      #     pwd
+      #     ls -al
 
-      - name: ansible-playbook 
-        run: |
-          cd ./terraform/build_temp_instance/
-          echo "$ANSIBLE_SSH_PRIVATE_KEY" > private_key.pem
-          chmod 600 private_key.pem
-          echo ${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }} >> inventory.ini
-          ansible-playbook -i inventory.ini \
-          -e "ansible_ssh_private_key_file=private_key.pem" \
-          ping-pong.yaml
-        env:
-          ANSIBLE_HOST_KEY_CHECKING: "False"
+      # - name: ansible-playbook 
+      #   run: |
+      #     cd ./terraform/build_temp_instance/
+      #     echo "$ANSIBLE_SSH_PRIVATE_KEY" > private_key.pem
+      #     chmod 600 private_key.pem
+      #     echo ${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }} >> inventory.ini
+      #     ansible-playbook -i inventory.ini \
+      #     -e "ansible_ssh_private_key_file=private_key.pem" \
+      #     ping-pong.yaml
+      #   env:
+      #     ANSIBLE_HOST_KEY_CHECKING: "False"
 
 
+
+
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          # Required, playbook filepath
+          playbook: ping-pong.yaml
+          # Optional, directory where playbooks live
+          directory: ./terraform/build_temp_instance/
+          # Optional, SSH private key
+          key: ${{ secrets.EC2_GITHUB }}
+          # Optional, literal inventory file contents
+          inventory: |
+            [all]
+            ${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }}
+
+            [group1]
+            ${{ needs.create_ami_part1_create_ec2.outputs.ec2_ip }}
+          # # Optional, SSH known hosts file content
+          # known_hosts: |
+          #   example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
+          # # Optional, encrypted vault password
+          # vault_password: ${{secrets.VAULT_PASSWORD}}
+          # # Optional, galaxy requirements filepath
+          # requirements: galaxy-requirements.yml
+          # # Optional, additional flags to pass to ansible-playbook
+          options: |
+            --inventory .hosts
+            --limit group1
+            --extra-vars hello=there
+            --verbose
 # - name: ansible-playbook 
 # run: |
 #   cd ./terraform/build_temp_instance/
