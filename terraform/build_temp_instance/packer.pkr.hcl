@@ -34,7 +34,7 @@ build {
   }
 
   post-processors {
-    amazon-ami = {
+    ami = {
       access_key    = var.aws_access_key
       secret_key    = var.aws_secret_key
       region        = "us-east-1"
@@ -49,6 +49,6 @@ build {
   provisioner "shell" {
     inline = [
         "echo $AMI_ID > ami_id.txt"
-  ]
-}
+    ]
+  }
 }
