@@ -1,15 +1,19 @@
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
 
+
 builders {
   type          = "amazon-ebs"
   region        = "us-east-1"
   source_ami_filter {
     filters = {
-      name              = "ubuntu/images/*ubuntu-bionic-20.04-amd64-server-*"
-      root-device-type = "ebs"
+      architecture        = "x86_64"
+      name                = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
+      root-device-type    = "ebs"
+      virtualization-type = "hvm"
     }
     most_recent = true
+    owners      = ["099720109477"]
   }
   instance_type = "t2.micro"
   ssh_username  = "ubuntu"

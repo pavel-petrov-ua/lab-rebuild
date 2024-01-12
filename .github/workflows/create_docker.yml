@@ -27,13 +27,7 @@ jobs:
          docker build -t pavlopetrovua/node-for-rebiuld-lab:latest .
          pwd
          docker push pavlopetrovua/node-for-rebiuld-lab:latest
-     - name: Build AMI with Packer
-       run: |
-        packer init ./terraform/build_temp_instance/packer.pkr.hcl
-        packer build ./terraform/build_temp_instance/packer.pkr.hcl
-
   
-
   deploy_infrastructure:
     #  needs: build_docker_ring_ring
     runs-on: ubuntu-latest
@@ -61,7 +55,41 @@ jobs:
       run: |
         cd ./terraform/
         terraform apply -auto-approve
-      
+  
+  packer-build:
+    runs-on: ubuntu-latest
+    needs: deploy_infrastructure
+    outputs:
+      ami_id: ${{ steps.ami_id_output.outputs.ami_id }}  
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.access_key }}
+        aws-secret-access-key: ${{ secrets.secret_access_key }}
+        aws-region: us-east-1  # Замініть на ваш регіон AWS
+
+    - name: Run Packer
+      run: |
+        packer build -var "aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" -var "aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" packer.hcl
+    
+    - name: Save AMI ID to file
+      run: echo "::set-output name=ami_id::$(cat ami_id.txt)"
+      if: always()
+
+    - name: Upload AMI ID as output
+      id: ami_id_output
+      run: echo "AMI_ID=${{ steps.save-ami-id.outputs.ami_id }}" >> $GITHUB_ENV
+      if: always()
+
+              
+
+
+        
 
 ###################################################################
 
