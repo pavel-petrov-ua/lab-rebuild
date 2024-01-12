@@ -75,10 +75,10 @@ jobs:
 
     - name: Run Packer
       run: |
-        packer build -var "aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" -var "aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" packer.hcl
+        packer build -var "aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" -var "aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" ./terraform/build_temp_instance/packer.hcl
     
     - name: Save AMI ID to file
-      run: echo "::set-output name=ami_id::$(cat ami_id.txt)"
+      run: echo "::set-output name=ami_id::$(cat ./terraform/build_temp_instance/ami_id.txt)"
       if: always()
 
     - name: Upload AMI ID as output
