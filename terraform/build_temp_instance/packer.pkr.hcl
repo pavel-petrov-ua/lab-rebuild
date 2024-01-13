@@ -26,6 +26,7 @@ source "amazon-ebs" "ring-ring" {
     most_recent = true
     owners      = ["099720109477"]
   }
+  ssh_username = "ubuntu"
 }
 
 build {
