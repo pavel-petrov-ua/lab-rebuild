@@ -32,30 +32,24 @@ source "amazon-ebs" "ring-ring" {
 build {
   sources = ["source.amazon-ebs.ring-ring"]
 
-  provisioner "shell" {
-    inline = [
-      // "sudo apt install -y apt-transport-https ca-certificates curl software-properties-common",
-      "export DEBIAN_FRONTEND=noninteractive",
-      "sudo apt update -y",
-      "sudo apt install -y apt-transport-https ca-certificates curl software-properties-common",
-      "sudo mkdir -p /etc/apt/trusted.gpg.d",
-      //"sudo install -m 0755 -d /etc/apt/keyrings",
-      "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg",
-      // "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -",
-      //"sudo chmod a+r /etc/apt/keyrings/docker.gpg",
-      "echo 'deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo \"$VERSION_CODENAME\") stable' | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
-     // "echo 'deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo \"$VERSION_CODENAME\") stable' | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
-      // "echo 'deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable' | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
-      "sudo apt update -y",
-      "apt-cache policy docker-ce",
-      "sudo apt install -y docker-ce",
-      "sudo systemctl start docker",
-      "sudo docker run hello-world",
-      "sudo systemctl enable docker",
-      "sudo usermod -aG docker ubuntu",
-      "docker run -d -p 80:80 pavlopetrovua/node-for-rebuild-lab:latest"
-    ]
-  }
+provisioner "shell" {
+  inline = [
+    "export DEBIAN_FRONTEND=noninteractive",
+    "sudo apt update -y",
+    "sudo apt install -y apt-transport-https ca-certificates curl software-properties-common",
+    "sudo mkdir -p /etc/apt/trusted.gpg.d",
+    "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg",
+    "echo 'deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable' | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
+    "sudo apt update -y",
+    "apt-cache policy docker-ce",
+    "sudo apt install -y docker-ce",
+    "sudo systemctl start docker",
+    "sudo docker run hello-world",
+    "sudo systemctl enable docker",
+    "sudo usermod -aG docker ubuntu",
+    "docker run -d -p 80:80 pavlopetrovua/node-for-rebuild-lab:latest"
+  ]
+}
 
   // post-processors {
   //   amazon-ami = {
