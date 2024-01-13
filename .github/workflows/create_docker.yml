@@ -75,7 +75,7 @@ jobs:
 
     - name: Run Packer
       run: |
-      packer init -var "aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" -var "aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" ./terraform/build_temp_instance/packer.pkr.hcl
+        packer init -var "aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" -var "aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" ./terraform/build_temp_instance/packer.pkr.hcl
         packer build -var "aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" -var "aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" ./terraform/build_temp_instance/packer.pkr.hcl
     
     - name: Save AMI ID to file
