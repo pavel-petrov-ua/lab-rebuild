@@ -29,7 +29,6 @@ source "amazon-ebs" "ring-ring" {
   ssh_username = "ubuntu"
 }
 
-
 build {
   sources = ["source.amazon-ebs.ring-ring"]
 
@@ -37,12 +36,10 @@ build {
     inline = [
       "sudo apt update -y",
       "sudo apt install -y apt-transport-https ca-certificates curl software-properties-common",
-    #  "sudo install -m 0755 -d /etc/apt/keyrings",
       "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
-     # "sudo chmod a+r /etc/apt/keyrings/docker.gpg",
       "echo 'deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable' | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
       "sudo apt update",
-      "apt-cache policy docker-ce".
+      "apt-cache policy docker-ce",
       "sudo apt install -y docker-ce",
       "sudo systemctl start docker",
       "sudo docker run hello-world",
