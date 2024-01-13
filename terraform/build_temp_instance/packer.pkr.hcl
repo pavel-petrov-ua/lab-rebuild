@@ -39,8 +39,7 @@ build {
       "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -",
       "sudo add-apt-repository 'deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable'",
       "sudo apt update"
-      "apt-cache policy docker-ce"
-      "sudo apt-get install -y docker.io",
+      "sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin",
       "sudo systemctl start docker",
       "sudo systemctl enable docker",
       "sudo usermod -aG docker ubuntu",
