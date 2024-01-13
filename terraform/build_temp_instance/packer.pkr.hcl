@@ -35,6 +35,7 @@ build {
   provisioner "shell" {
     inline = [
       // "sudo apt install -y apt-transport-https ca-certificates curl software-properties-common",
+      "export DEBIAN_FRONTEND=noninteractive",
       "sudo apt update -y",
       "sudo apt install -y apt-transport-https ca-certificates curl software-properties-common",
       "sudo mkdir -p /etc/apt/trusted.gpg.d",
