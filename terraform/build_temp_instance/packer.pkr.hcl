@@ -38,7 +38,7 @@ provisioner "shell" {
     "sudo apt update -y",
     "sudo apt install -y apt-transport-https ca-certificates curl software-properties-common",
     "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
-    "echo 'deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu jammy stable' | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
+    "echo 'deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo /"$VERSION_CODENAME/") stable' | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
     "sudo apt update -y",
     "apt-cache policy docker-ce",
     "sudo apt install -y docker-ce",
@@ -49,6 +49,7 @@ provisioner "shell" {
     "docker run -d -p 80:80 pavlopetrovua/node-for-rebuild-lab:latest"
   ]
 }
+
 
 
   // provisioner "shell" {
