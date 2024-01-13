@@ -29,6 +29,7 @@ source "amazon-ebs" "ring-ring" {
   ssh_username = "ubuntu"
 }
 
+
 build {
   sources = ["source.amazon-ebs.ring-ring"]
 
