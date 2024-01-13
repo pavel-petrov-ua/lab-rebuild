@@ -42,18 +42,18 @@ build {
     ]
   }
 
-  post-processors {
-    amazon-ami = {
-      access_key    = var.aws_access_key
-      secret_key    = var.aws_secret_key
-      region        = "us-east-1"
-      source_ami    = "{{.Build.Sources.amazon-ebs.ring-ring.AMI}}"
-      ami_name      = "ubuntu-with-docker-and-node-{{timestamp}}"
-      snapshot_tags = {
-        Name = "ubuntu-with-docker-and-node"
-      }
-    }
-  }
+  // post-processors {
+  //   amazon-ami = {
+  //     access_key    = var.aws_access_key
+  //     secret_key    = var.aws_secret_key
+  //     region        = "us-east-1"
+  //     source_ami    = "{{.Build.Sources.amazon-ebs.ring-ring.AMI}}"
+  //     ami_name      = "ubuntu-with-docker-and-node-{{timestamp}}"
+  //     snapshot_tags = {
+  //       Name = "ubuntu-with-docker-and-node"
+  //     }
+  //   }
+  // }
 
   provisioner "shell" {
     inline = [
