@@ -39,7 +39,7 @@ build {
       "sudo apt update -y",
       "sudo apt install -y apt-transport-https ca-certificates curl software-properties-common",
       "sudo mkdir -p /etc/apt/trusted.gpg.d",
-      "sudo install -m 0755 -d /etc/apt/keyrings",
+      //"sudo install -m 0755 -d /etc/apt/keyrings",
       "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg",
       // "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -",
       "sudo chmod a+r /etc/apt/keyrings/docker.gpg",
