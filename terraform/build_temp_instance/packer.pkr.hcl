@@ -3,6 +3,15 @@
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
 
+packer {
+  required_plugins {
+    amazon = {
+      version = ">= 1.2.8"
+      source  = "github.com/hashicorp/amazon"
+    }
+  }
+}
+
 source "amazon-ebs" "ring-ring" {
   ami_name      = "ubuntu-with-docker-and-node"
   instance_type = "t2.micro"
