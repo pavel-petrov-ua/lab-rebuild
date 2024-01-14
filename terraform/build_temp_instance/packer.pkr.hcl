@@ -49,7 +49,7 @@ provisioner "shell" {
     "sudo systemctl start docker",
     "sudo systemctl enable docker",
     "sudo docker run hello-world",
-    "docker pull pavlopetrovua/node-for-rebiuld-lab",
+    "sudo docker pull pavlopetrovua/node-for-rebiuld-lab",
     //"docker run -d -p 9007:9007 pavlopetrovua/node-for-rebuild-lab:latest"
   ]
 }
@@ -68,9 +68,9 @@ provisioner "shell" {
   //   }
   // }
 
-  // provisioner "shell" {
-  //   inline = [
-  //       "echo $AMI_ID > ami_id.txt"
-  //   ]
-  // }
+  provisioner "shell" {
+    inline = [
+        "echo $AMI_ID > ami_id.txt"
+    ]
+  }
 }
