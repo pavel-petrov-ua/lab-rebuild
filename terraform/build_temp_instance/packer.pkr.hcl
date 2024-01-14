@@ -47,10 +47,10 @@ provisioner "shell" {
     "sudo usermod -aG docker $USER",
     "newgrp docker",
     "sudo systemctl start docker",
-    "sudo docker run hello-world",
     "sudo systemctl enable docker",
-    "docker pull pavlopetrovua/node-for-rebiuld-lab",
-    "docker run -d -p 9007:9007 pavlopetrovua/node-for-rebuild-lab:latest"
+    "sudo docker run hello-world",
+    //"docker pull pavlopetrovua/node-for-rebiuld-lab",
+    //"docker run -d -p 9007:9007 pavlopetrovua/node-for-rebuild-lab:latest"
   ]
 }
 
