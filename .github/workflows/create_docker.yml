@@ -87,6 +87,10 @@ jobs:
       run: echo "AMI_ID=${{ steps.save-ami-id.outputs.ami_id }}" >> $GITHUB_ENV
       if: always()
 
+    - name: Upload AMI ID as output
+      run: echo ${{ steps.save-ami-id.outputs.ami_id }}
+      if: always()
+
               
         
 
