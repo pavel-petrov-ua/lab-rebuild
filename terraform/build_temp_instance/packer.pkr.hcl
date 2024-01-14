@@ -92,9 +92,9 @@ provisioner "shell" {
   //   }
   // }
 
-  provisioner "shell" {
-    inline = [
-        "echo $AMI_ID > ami_id.txt"
-    ]
-  }
+  // provisioner "shell" {
+  //   inline = [
+  //       "echo $AMI_ID > ami_id.txt"
+  //   ]
+  // }
 }
