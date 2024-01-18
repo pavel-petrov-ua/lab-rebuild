@@ -1,13 +1,13 @@
 FROM node:latest
 
-WORKDIR /app1
+WORKDIR /app
 
-COPY ./app/package*.json ./
+COPY ./app/* ./app/
 
-RUN npm install
+RUN npm install 
 
 COPY . .
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["npm", "start" ./pack]
