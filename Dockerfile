@@ -1,11 +1,12 @@
 FROM node:latest
 
-WORKDIR /app1
+WORKDIR /app
 
-COPY ./app/package*.json ./
+COPY ./app/package*.json ./app/yarn.lock* ./
 
 RUN npm install 
 
+COPY ./app/process.json ./app/server.js ./
 COPY ./app/* ./
 
 EXPOSE 3000
