@@ -50,7 +50,7 @@ provisioner "shell" {
     "sudo systemctl enable docker",
     "sudo docker run hello-world",
     "sudo docker pull pavlopetrovua/node-for-rebiuld-lab",
-    //"docker run -d -p 9007:9007 pavlopetrovua/node-for-rebiuld-lab:latest"
+    "sudo docker run -d -p 9007:9007 pavlopetrovua/node-for-rebiuld-lab:latest"
   ]
 }
 
