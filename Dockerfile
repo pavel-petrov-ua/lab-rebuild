@@ -9,4 +9,4 @@ COPY ./app/process.json ./app/server.js ./
 
 EXPOSE 3000
 
-CMD ["bash"]
+CMD ["npm", "start"]
