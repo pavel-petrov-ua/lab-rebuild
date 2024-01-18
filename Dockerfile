@@ -9,6 +9,8 @@ RUN npm install
 COPY ./app/process.json ./app/server.js ./
 COPY ./app/* ./
 
+RUN npm audit fix --force
+
 EXPOSE 3000
 
-CMD ["sh"]
+CMD ["npm", "start"]
