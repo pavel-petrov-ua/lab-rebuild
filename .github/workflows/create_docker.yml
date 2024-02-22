@@ -6,6 +6,7 @@ on:
       - main
       - dev
 
+      
 jobs:
   build_docker_ring_ring:
     runs-on: ubuntu-latest
@@ -24,9 +25,9 @@ jobs:
        run: |
          pwd
          ls -ax
-         docker build -t pavlopetrovua/node-for-rebiuld-lab:latest .
+         docker build -t pavlopetrovua/node-for-rebiuld-lab:0.1 .
          pwd
-         docker push pavlopetrovua/node-for-rebiuld-lab:latest
+         docker push pavlopetrovua/node-for-rebiuld-lab:0.1
   
   deploy_infrastructure:
     #  needs: build_docker_ring_ring
