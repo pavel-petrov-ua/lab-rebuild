@@ -4,7 +4,7 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket         = "petrov-pavlo-2023-11-20"
+    bucket         = "petrov-pavlo-2024-02-22"
     key            = "aws/main/terraform.tfstate"
     region         = "us-east-1"  
     encrypt        = true
