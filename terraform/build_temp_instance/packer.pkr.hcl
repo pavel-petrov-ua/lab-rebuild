@@ -14,7 +14,7 @@ packer {
 
 source "amazon-ebs" "ring-ring" {
   ami_name      = "ubuntu-with-docker-and-node"
-  instance_type = "t2.micro"
+  instance_type = "t3.micro"
   region        = "us-east-1"
   source_ami_filter {
     filters = {
