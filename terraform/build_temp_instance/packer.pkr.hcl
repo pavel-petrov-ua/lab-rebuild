@@ -35,6 +35,7 @@ build {
 
 provisioner "shell" {
   inline = [
+    "echo 'hello world'"
     "sudo apt update -y",
     "sudo apt install -y apt-transport-https ca-certificates curl software-properties-common gnupg",
     "sudo install -m 0755 -d /etc/apt/keyrings",
