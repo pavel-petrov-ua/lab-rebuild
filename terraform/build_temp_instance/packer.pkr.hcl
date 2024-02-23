@@ -35,11 +35,9 @@ build {
 
 provisioner "shell" {
   inline = [
-    "echo 'hello world'",
     "sudo apt update -y",
     "sudo apt install -y apt-transport-https ca-certificates curl software-properties-common gnupg",
     "sudo install -m 0755 -d /etc/apt/keyrings",
-    "echo 'hello world'",
     "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg",
     "sudo chmod a+r /etc/apt/keyrings/docker.gpg",
     "echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable' | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
